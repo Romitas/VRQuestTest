@@ -43,10 +43,12 @@ public class Client : MonoBehaviour {
     public void OnLeft(NetworkMessage netMsg) {
         JoinedLeftMessage joinedMsg = netMsg.ReadMessage<JoinedLeftMessage>();
         int actPlayerCount = joinedMsg.playerCount;
+        this.playerCount = actPlayerCount;
+        if (actPlayerCount >= 4) { return; }
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         Destroy(players[players.Length - 1]);
-        this.playerCount = actPlayerCount;
+        
     }
 
     public void OnJoined(NetworkMessage netMsg) {
